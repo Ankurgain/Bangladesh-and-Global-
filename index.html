@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Global and Bangladesh Updates</title>
+    <style>
+        /* Basic Reset and Body Styling */
+        body {
+            font-family: Arial, sans-serif;  /* Set font style for the page */
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;  /* Light background color */
+            color: #333;  /* Dark text for good contrast */
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;  /* Dark background for header */
+            color: white;  /* White text color */
+            padding: 20px;  /* Space around header text */
+            text-align: center;  /* Center align the text */
+        }
+
+        /* Main container where content is placed */
+        .container {
+            width: 80%;  /* Make the container 80% of the viewport width */
+            margin: 20px auto;  /* Center align the container with margins */
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 30px;  /* Space between sections */
+        }
+
+        /* Heading for each section */
+        h2 {
+            color: #333;  /* Dark color for section headings */
+        }
+
+        /* Card styling for individual content blocks */
+        .card {
+            background-color: white;  /* White background for cards */
+            padding: 20px;  /* Padding inside the card */
+            border-radius: 8px;  /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;  /* Center align footer text */
+            padding: 5px 10px;  /* Reduced padding for a slimmer footer */
+            background-color: #333;  /* Dark footer background */
+            color: white;  /* White text for footer */
+            position: fixed;  /* Fixed at the bottom of the page */
+            width: 100%;  /* Full width */
+            bottom: 0;  /* Position at the bottom */
+            font-size: 12px;  /* Smaller font for compactness */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Global and Bangladesh Updates</h1>
+    <p>Stay informed with the latest data, events, and news</p>
+</header>
+
+<div class="container">
+    <!-- Rare Data Section -->
+    <section id="rare-data">
+        <h2>Rare Data Insights</h2>
+        <div class="card" id="rare-data-card">
+            <p>Loading rare data...</p>
+        </div>
+    </section>
+
+    <!-- Latest Events in Bangladesh -->
+    <section id="bangladesh-events">
+        <h2>Latest Events in Bangladesh</h2>
+        <div class="card" id="bangladesh-event-card">
+            <p>Loading events...</p>
+        </div>
+    </section>
+
+    <!-- Global Latest Information -->
+    <section id="global-news">
+        <h2>Global Latest Information</h2>
+        <div class="card" id="global-news-card">
+            <p>Loading global news...</p>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 Global and Bangladesh Updates. All Rights Reserved.</p>
+</footer>
+
+<script>
+    /* Function to fetch data from the News API for global updates */
+    async function fetchGlobalUpdates() {
+        const apiKey = 'YOUR_NEWS_API_KEY';  // Replace with your API key from News API
+        const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;  // Get top headlines from US
+        
+        try {
+            let response = await fetch(url);  // Fetch data from the API
+            let data = await response.json();  // Convert response to JSON format
+
+            /* Insert the fetched data into the card for global news */
+            const newsContent = document.getElementById('global-news-card');
+            newsContent.innerHTML = `<h3>${data.articles[0].title}</h3><p>${data.articles[0].description}</p>`;
+        } catch (error) {
+            console.error("Error fetching global news: ", error);  // If there's an error, log it
+        }
+    }
+
+    /* Function to fetch events related to Bangladesh */
+    async function fetchBangladeshEvents() {
+        // Replace this part with an actual API or static data
+        const bangladeshEvents = [
+            { title: "Event 1: Digital Bangladesh Initiative", description: "Bangladesh is increasing digital literacy across rural areas." },
+            { title: "Event 2: Dhaka International Trade Fair", description: "The Dhaka International Trade Fair is ongoing showcasing global businesses." }
+        ];
+
+        const eventContent = document.getElementById('bangladesh-event-card');
+        /* Loop through the events and display them on the page */
+        eventContent.innerHTML = bangladeshEvents.map(event => 
+            `<h3>${event.title}</h3><p>${event.description}</p>`
+        ).join('');
+    }
+
+    /* Function to fetch rare data insights */
+    async function fetchRareData() {
+        const rareData = "Did you know? The longest living animal is the Bowhead whale, which can live over 200 years!";
+        const rareDataCard = document.getElementById('rare-data-card');
+        rareDataCard.innerHTML = `<p>${rareData}</p>`;  // Display the rare data inside the card
+    }
+
+    /* Call the functions to fetch the content when the page loads */
+    window.onload = function() {
+        fetchGlobalUpdates();  // Fetch the latest global news
+        fetchBangladeshEvents();  // Fetch Bangladesh events
+        fetchRareData();  // Fetch rare data insights
+    }
+</script>
+
+</body>
+</html>
